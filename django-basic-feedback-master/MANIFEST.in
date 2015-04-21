@@ -1,4 +1,0 @@
-include django_basic_feedback/static/*
-include django_basic_feedback/templates/feedback/*
-include LICENSE
-include README
