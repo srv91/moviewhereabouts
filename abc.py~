@@ -1,0 +1,6 @@
+a = "abc"
+def abc():
+    a = a + ","
+    return a
+
+print abc()

@@ -1,0 +1,7 @@
+.jumbotron {
+    background:#121212 !important;
+}
+
+.input-grp-btn {
+    margin-bottom: 10px;
+}

@@ -1,0 +1,19 @@
+import simplejson
+import requests
+#from django.core.management import setup_environ
+#from moviewhereabouts import settings
+import Movie
+
+#setup_environ(settings)
+
+key = "662g9gvhs6kcgwyj5aqn5j25"
+url = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apikey=%s"
+res = requests.get(url % key)
+data = res.content
+js = simplejson.loads(data)
+movies = js["movies"]
+
+for movie in movies:
+    print movie["title"]
+
+

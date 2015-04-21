@@ -23,7 +23,7 @@ try:
         #mid = movie['id']
 
         #for movie_id in models.Movie:
-            #if mid = movie_id:
+            #if mid == movie_id:
                 #print movie['title']+"already exists."
                 #break;
 

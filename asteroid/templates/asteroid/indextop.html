@@ -1,0 +1,12 @@
+{% load staticfiles %}
+{% if top_movies %}
+  <ul>
+  {% for movie in top_movies %}
+    <li><a href="{% url 'asteroid:detail' movie.id %}">{{ movie.title }}</a></li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>No results are available.</p>
+{% endif %}
+
+
