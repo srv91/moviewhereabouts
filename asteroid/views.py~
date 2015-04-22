@@ -13,16 +13,6 @@ from urllib import urlencode
 import zlib
 
 class RT(object):
-    """
-    An easy-to-use Python wrapper for the Rotten Tomatoes API.
-
-    >>> RT('my-api-key').search('the lion king')
-
-    Or, if your API key is saved as the `RT_KEY` environment variable,
-    the RT class can be initialized like so:
-
-    >>> RT().search('the lion king')
-    """
 
     def __init__(self, api_key='', version=1.0):
         if not api_key:
@@ -40,22 +30,13 @@ class RT(object):
         self.movie_url = BASE_URL + 'movies'
 
     def _load_json_from_url(self, url):
-      """
-      A wrapper around the api call. The response might be gzipped,
-      which this will abstract away. Returns a JSON-decoded dictionary.
-      """
-      response = urlopen(url).read()
+        response = urlopen(url).read()
+        try:
+            response = zlib.decompress(response, 16+zlib.MAX_WBITS)
+        except zlib.error:
+            pass
 
-      # the response might be gzip'd
-      try:
-        # explanation of magic number:
-        # http://stackoverflow.com/a/2695466/474683
-        response = zlib.decompress(response, 16+zlib.MAX_WBITS)
-      except zlib.error:
-        # if there's an error, it's probably not gzip'd
-        pass
-
-      return json.loads(response)
+        return json.loads(response)
 
     def search(self, query, datatype='movies', **kwargs):
         """

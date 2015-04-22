@@ -2,7 +2,6 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from rottentomatoes import RT
 from asteroid.models import Movie, Cast
 import urllib
 from urllib2 import urlopen
