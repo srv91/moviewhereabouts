@@ -8,6 +8,7 @@ import urllib
 from urllib2 import urlopen
 import requests
 import json
+from django.db import connection
 
 def browse(request):
     movies = Movie.objects.all()
@@ -118,10 +119,10 @@ def search(request):
                         syno = js['overview']
                     m = Movie(id = rt_id, imdb_id = o_imdbid, tmdb_id = tmdbid, title = movie['title'], movie_synopsis = syno, critics_score = movie['ratings']['critics_score'], release = movie['year'], votes = 10, img = image, s_img = simage, l_img = limage, genre = found_genre)
                     m.save()
+                    m.update()
                 except:
                     print "could not save: "+movie['title']
                     break;
             found_movies = Movie.objects.filter(title__icontains=q)
             context = {'movies': found_movies}
             return render(request, 'asteroid/search.html', context)
-
