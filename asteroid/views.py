@@ -9,6 +9,52 @@ from urllib2 import urlopen
 import requests
 import json
 from django.db import connection
+from urllib import urlencode
+import zlib
+
+class RT(object):
+
+    def __init__(self, api_key='', version=1.0):
+        if not api_key:
+            self.api_key = API_KEY
+        else:
+            self.api_key = api_key
+        assert self.api_key is not None, "No API Key"
+
+        if isinstance(version, float):
+            version = str(version)  # Eliminate any weird float behavior.
+        self.version = version
+        BASE_URL = 'http://api.rottentomatoes.com/api/public/v%s/' % version
+        self.BASE_URL = BASE_URL
+        self.lists_url = BASE_URL + 'lists'
+        self.movie_url = BASE_URL + 'movies'
+
+    def _load_json_from_url(self, url):
+        response = urlopen(url).read()
+        try:
+            response = zlib.decompress(response, 16+zlib.MAX_WBITS)
+        except zlib.error:
+            pass
+
+        return json.loads(response)
+
+    def search(self, query, datatype='movies', **kwargs):
+        """
+        Rotten Tomatoes movie search. Returns a list of dictionaries.
+        Possible kwargs include: `page` and `page_limit`.
+
+        >>> RT().search('the lion king')
+
+        Or, for the total count of search results:
+
+        >>> RT().search('disney', 'total')
+        """
+        search_url = [self.movie_url, '?']
+        kwargs.update({'apikey': self.api_key, 'q': query})
+        search_url.append(urlencode(kwargs))
+        data = self._load_json_from_url(''.join(search_url))
+        return data[datatype]
+
 
 def browse(request):
     movies = Movie.objects.all()
