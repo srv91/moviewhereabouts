@@ -5,6 +5,6 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'moviewhereabouts.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-    url(r'^moviewhereabouts.herokuapp.com/asteroid/', include('asteroid.urls', namespace="asteroid")),
+    url(r'^moviewhereabouts.herokuapp.com', include('asteroid.urls', namespace="asteroid")),
     url(r'^admin/', include(admin.site.urls)),
 )
