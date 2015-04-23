@@ -1,3 +1,4 @@
+from dj-database-url import dj_database_url
 """
 Django settings for moviewhereabouts project.
 
