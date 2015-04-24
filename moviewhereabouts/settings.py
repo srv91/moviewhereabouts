@@ -63,7 +63,9 @@ DATABASES = {
         'NAME': '/home/shobhit/developer/moviewhereabouts/db.sqlite3',
     }
 }
+import dj_database_url
 
+DATABASES['default'] = dj_database_url.config()
 
 
 # Internationalization
