@@ -77,7 +77,7 @@ def voting(request, movie_id):
     return HttpResponseRedirect(reverse('asteroid:detail', args=(m.id,)))
 
 def welcome(request):
-    latest_movies = Movie.objects.filter(release=2015)[:3]
+    latest_movies = Movie.objects.filter(category='latest')[:3]
     top_movies = Movie.objects.order_by('-votes')[:3]
     context = {'latest_movies': latest_movies, 'top_movies': top_movies}
     return render(request, 'asteroid/welcome.html', context)

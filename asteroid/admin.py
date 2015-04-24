@@ -13,12 +13,11 @@ class MovieAdmin(admin.ModelAdmin):
         (None, {'fields': ['movie_synopsis']}),
         (None, {'fields': ['critics_score']}),
         (None, {'fields': ['genre']}),
-        (None, {'fields': ['release']}),
         (None, {'fields': ['s_img']}),
         (None, {'fields': ['votes']}),
     ]
     inlines = [CastInLine]
-    list_display = ('title', 'release')
+    list_display = ('title', 'genre')
 
 class CastAdmin(admin.ModelAdmin):
     fieldsets = [

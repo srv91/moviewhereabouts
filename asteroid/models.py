@@ -14,7 +14,6 @@ class Movie(models.Model):
     title = models.CharField(max_length = 100)
     movie_synopsis = models.CharField(max_length = 1800)
     critics_score = models.IntegerField(default = 0)
-    release = models.IntegerField(default = 0)
     votes = models.IntegerField(default = 10)
     img = models.CharField(max_length = 50, default = 'Image unavailable')
     s_img = models.CharField(max_length = 70, default = '')
