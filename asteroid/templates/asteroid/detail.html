@@ -102,7 +102,7 @@
           <div class="col-md-7">
             <h2 class="featurette-heading">{{ movie.title }}</h2>
             <p class="lead">
-              <img src="{% static 'asteroid/images/rt_score.png' %}" /> {{ movie.critics_score }}
+              <img src="{% static 'asteroid/images/rt_score.png' %}" />  {{ movie.critics_score }}%
               <p>{{ movie.movie_synopsis }}</p></br>
               <form action="{% url 'asteroid:voting' movie.id %}" method="post">
                 {% csrf_token %}
