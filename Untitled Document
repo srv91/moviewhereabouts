@@ -1,4 +1,3 @@
 venv
 *.pyc
 staticfiles
-/asteroid/migrations/0002_auto_20150212_1459.py
