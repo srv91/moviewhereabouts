@@ -19,7 +19,7 @@ print "Getting latest movies..."
 for movie in latest['movies']:
     if Movie.objects.filter(id = movie['id']).exists()==False:
         try:
-            m = models.Movie(id = movie['id'], title = movie['title'], movie_synopsis = movie['synopsis'], critics_score = movie['ratings']['critics_score'], votes = 10, img = movie['title'].replace(" ","").lower(), category = 'latest')
+            m = models.Movie(id = movie['id'], imdb_id = movie['alternate_ids']['imdb'], title = movie['title'], movie_synopsis = movie['synopsis'], critics_score = movie['ratings']['critics_score'], votes = 10, img = movie['title'].replace(" ","").lower(), category = 'latest')
             m.save()
 
         except:

@@ -13,7 +13,7 @@ from asteroid import models
 from asteroid.models import Movie
 my_key = '662g9gvhs6kcgwyj5aqn5j25'
 
-latest = RT(my_key).lists('movies', 'upcoming')
+latest = RT(my_key).lists('dvds', 'new_releases')
 
 print "Getting latest movies..."
 for movie in latest['movies']:
