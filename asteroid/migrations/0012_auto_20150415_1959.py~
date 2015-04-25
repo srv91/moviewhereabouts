@@ -11,4 +11,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.AlterField(
+            model_name='movie',
+            name='imdb_id',
+            field=models.IntegerField(default=0),
+            preserve_default=True,
+        ),
     ]

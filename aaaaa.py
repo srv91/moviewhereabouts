@@ -12,7 +12,10 @@ from asteroid import models
 from asteroid.models import Movie
 
 for movie in Movie.objects.all():
-    r = movie.release
+    r = movie.imdb_id
     print r
-    movie.release = int(r)
-    movie.save()
+    if r == 0:
+        movie.delete()
+    else:
+        movie.release = int(r)
+        movie.save()
