@@ -119,7 +119,7 @@ def search(request):
                         syno = movie['synopsis']
                     else:
                         syno = js['overview']
-                    m = Movie(id = rt_id, imdb_id = o_imdbid, tmdb_id = tmdbid, title = movie['title'], movie_synopsis = syno, critics_score = movie['ratings']['critics_score'], release = int(movie['year']), votes = 10, img = image, s_img = simage, l_img = limage, genre = found_genre)
+                    m = Movie(id = rt_id, imdb_id = o_imdbid, tmdb_id = tmdbid, title = movie['title'], movie_synopsis = syno, critics_score = movie['ratings']['critics_score'], votes = 10, img = image, s_img = simage, l_img = limage, genre = found_genre)
                     m.save()
                     m.update()
                 except:
