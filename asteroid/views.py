@@ -12,6 +12,7 @@ from django.db import connection
 from urllib import urlencode
 import zlib
 from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 
 def browse(request):
     movies = Movie.objects.all()
@@ -145,19 +146,21 @@ def feedback(request):
                 name = request.POST['name']
                 email = request.POST['email']
                 message = request.POST['message']
+                try:
+                    validate_email(email)
+                except ValidationError as e:
+                    valid = False
+                else:
+                    valid = True
+                f = Feedback(fname = str(name), fmail = email, msg = str(message))
+                f.save()
+                context = {'tags': True, 'success': True, 'valid': valid}
 
-            try:
-                validate_email(email)
-                valid = True
-            except ValidationError:
-                valid = False
-
-            f = Feedback(fname = str(name), fmail = email, msg = str(message))
-            f.save()
-            context = {'tags': True, 'success': True, 'valid': valid}
-            return render(request, 'asteroid/about.html', context)
+            else:
+                context = {'tags': True, 'success': False, 'valid': True}
+        else:
+            context = {'tags': True, 'success': False, 'valid': True}
     else:
         context = {'tags': True, 'success': False, 'valid': True}
-        return render(request, 'asteroid/about.html', context)
-
+    return render(request, 'asteroid/about.html', context)
 

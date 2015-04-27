@@ -2,6 +2,10 @@
     background:#121212 !important;
 }
 
-.input-grp-btn {
+.input-grp-btn button{
     margin-bottom: 10px;
+}
+
+.hover_drop_down:hover ul.dropdown-menu{
+   display: block;
 }

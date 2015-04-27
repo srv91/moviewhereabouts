@@ -1,3 +1,5 @@
+{% load staticfiles %}
+{% load url from future %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -47,9 +49,9 @@
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
                 <li><a href="{% url 'asteroid:welcome' %}">Home</a></li>
-                <li><a href="#about">About</a></li>
+                <li class="active"><a href="#about">About</a></li>
                 <li><a href="{% url 'asteroid:browse' %}">Browse Movies</a></li>
-                <li class="dropdown active">
+                <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Genres <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="{% url 'asteroid:browse_genre' g='action' %}">Action </a></li>
@@ -94,13 +96,24 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Our whereABOUTs</h1>
+        <h1>About us </h1>
         <p>movieWHEREabouts is an easy to use and duely updated application to enhance user experience when searching for their favourite movies, with all the required information in addition to the best renting or selling options available.</br>Thanks for visiting us!</p>
       </div>
     </div>
 
     <div class="container">
       <!-- FEEDBACK -->
+    {% if tags %}
+      {% if success %}
+        <div class="alert alert-success" role="alert"><strong>Thanks!</strong>You successfully posted your feedback.</div>
+      {% else %}
+        {% if valid %}
+          <div class="alert alert-danger" role="alert"><strong>Oh snap!</strong>Invalid submission, please try again.</div>
+        {% else %}
+          <div class="alert alert-danger" role="alert"><strong>Oh snap!</strong>Invalid email, please try submitting again.</div>
+        {% endif %}
+      {% endif %}
+    {% endif %}
 
     <div class="form-group">
       <h2>Leave us a feedback ?</h2>
@@ -115,23 +128,10 @@
       </form>
     </div>
 
-    {% if tags %}
-      {% if success %}
-        <div class="alert alert-success" role="alert"><strong>Thanks!</strong>You successfully posted your feedback.</div>
-      {% else %}
-        {% if valid %}
-          <div class="alert alert-danger" role="alert"><strong>Oh snap!</strong>Invalid submission, please try again.</div>
-        {% else %}
-          <div class="alert alert-danger" role="alert"><strong>Oh snap!</strong>Invalid email, please try submitting again.</div>
-        {% endif %}
-      {% endif %}
-    {% endif %}
-
       <hr>
 
       <footer>
-        <p>&copy; All rights to this website are reserved under the name of <a href="http://facebook.com/shobhit.srivastava91">Shobhit Srivastava</a>. Powered by <a href="http://djangoproject.com/">Django</a>.</p>
-      </footer>
+        <p>&copy; All rights to this website are reserved under the name of <a href="http://facebook.com/shobhit.srivastava91">Shobhit Srivastava</a>. Supported by <a href="http://djangoproject.com/">Django</a>. Powered by <a href="http://rottentomatoes.com/">RottenTomatoes</a> and <a href="http://themoviedb.org/">TMDb</a>. </p>
     </div> <!-- /container -->
 
 

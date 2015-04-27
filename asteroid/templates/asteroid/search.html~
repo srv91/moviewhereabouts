@@ -77,11 +77,12 @@
               </ul>
               <form class="navbar-form navbar-right" action="/asteroid/search/" method="post">
                 {% csrf_token %}
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 <div class="input-group">
-                  <input type="text" class="form-control input-sm" placeholder="Enter the title" name="q">
+                  <input type="text" class="form-control input-sm" placeholder="Quick Search" name="q">
                   <span class="input-group-btn">
-                    <button class="btn btn-sm btn-success" type="submit">Search </button>
+                    <button class="btn btn-sm btn-success" type="submit">
+                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
                   </span>
                 </div>
               </form>

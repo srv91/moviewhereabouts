@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>movieWHEREabouts-browse-genre</title>
+    <title>movieWHEREabouts-About</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'asteroid/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -30,8 +30,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-<!-- NAVBAR
-================================================== -->
+
   <body>
     <div class="navbar-wrapper">
       <div class="container">
@@ -50,9 +49,9 @@
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
                 <li><a href="{% url 'asteroid:welcome' %}">Home</a></li>
-                <li><a href="{% url 'asteroid:about' %}">About</a></li>
+                <li class="active"><a href="#about">About</a></li>
                 <li><a href="{% url 'asteroid:browse' %}">Browse Movies</a></li>
-                <li class="dropdown active">
+                <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Genres <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="{% url 'asteroid:browse_genre' g='action' %}">Action </a></li>
@@ -94,72 +93,46 @@
       </div>
     </div>
 
-
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <form action="/asteroid/search/" method="post">
-          {% csrf_token %}
-          <div class ="col-md-4">
-            <h2>Search:</h2></br>
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Enter the title" name="q">
-              <span class="input-group-btn">
-                <button class="btn btn-success" type="submit">Submit</button>
-              </span>
-            </div>
-          </div>
-        </form>
+        <h1>Our whereABOUTs</h1>
+        <p>movieWHEREabouts is an easy to use and duely updated application to enhance user experience when searching for their favourite movies, with all the required information in addition to the best renting or selling options available.</br>Thanks for visiting us!</p>
       </div>
     </div>
 
-    
     <div class="container">
-      <!-- Example row of columns -->
+      <!-- FEEDBACK -->
 
-      {% if movies %}
-        {% for movie in movies %}
-          {% if forloop.first %}
-            <div class="row"></br></br></br></br>
-          {% endif %}
-          <div class="col-md-4">
-            <object data="{{ movie.s_img }}">
-              <img src="{% static 'asteroid/images/s_unavailable.jpg' %}" />
-            </object>
-            <p><a class="btn btn-primary" href="{% url 'asteroid:detail' movie.id %}" role="button">View details &raquo;</a></p>
-          </div>
-          {% if forloop.counter|divisibleby:"3" or forloop.last %}
-            </div>  <!--end row-->
-            <div class="row"></br></br></br></br>
-          {% endif %}
-        {% endfor %}
+    <div class="form-group">
+      <h2>Leave us a feedback ?</h2>
+      <form action="/asteroid/feedback/" method="post">
+        {% csrf_token %}
+        <h3>Introduce yourself :</h3></br>
+        <input type="text" class="form-control" placeholder="Name" name="name"></br>
+        <input type="text" class="form-control" placeholder="Email" name="email"></br>
+        <h3>Your message :</h3></br>
+        <textarea class="form-control" rows="5" name="message"></textarea></br>
+        <button class="btn btn-success" type="submit">Submit</button>
+      </form>
+    </div>
 
+    {% if tags %}
+      {% if success %}
+        <div class="alert alert-success" role="alert"><strong>Thanks!</strong>You successfully posted your feedback.</div>
       {% else %}
-        <p>Sorry, no movies matched your search criteria.</p>
+        {% if valid %}
+          <div class="alert alert-danger" role="alert"><strong>Oh snap!</strong>Invalid submission, please try again.</div>
+        {% else %}
+          <div class="alert alert-danger" role="alert"><strong>Oh snap!</strong>Invalid email, please try submitting again.</div>
+        {% endif %}
       {% endif %}
+    {% endif %}
 
-      <div class="col-md-16 col-md-offset-4">
-        <div class="pagination">
-          <span class="step-links">
-            {% if movies.has_previous %}
-              </br></br></br></br></br><a href="?page={{ movies.previous_page_number }}">&laquo;</a>
-            {% endif %}
-
-            <span class="current">
-              Page {{ movies.number }} of {{ movies.paginator.num_pages }}
-            </span>
-
-            {% if movies.has_next %}
-              <a href="?page={{ movies.next_page_number }}">&raquo;</a>
-            {% endif %}
-          </span>
-        </div>
-      </div>
       <hr>
 
       <footer>
-        <p>&copy; All rights to this website are reserved under the name of <a href="http://facebook.com/shobhit.srivastava91">Shobhit Srivastava</a>. Powered by <a href="http://djangoproject.com/">Django</a>.</p>
-      </footer>
+        <p>&copy; All rights to this website are reserved under the name of <a href="http://facebook.com/shobhit.srivastava91">Shobhit Srivastava</a>. Supported by <a href="http://djangoproject.com/">Django</a>. Powered by <a href="http://rottentomatoes.com/">RottenTomatoes</a> and <a href="http://themoviedb.org/">TMDb</a>. </p>
     </div> <!-- /container -->
 
 

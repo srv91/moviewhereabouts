@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>browse-genre</title>
+    <title>movieWHEREabouts-browse-genre</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'asteroid/css/bootstrap.min.css' %}" rel="stylesheet">

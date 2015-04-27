@@ -5,6 +5,8 @@ from asteroid import views
 urlpatterns = patterns('',
     url(r'^$', views.screen1, name='screen1'),
     url(r'^welcome/$', views.welcome, name='welcome'),
+    url(r'^about/', views.about, name='about'),
+    url(r'^about/$', views.feedback, name='feedback'),
     url(r'^browse/$', views.browse, name='browse'),
     url(r'^browse-genre/(?P<g>\w+)/$', views.browse_genre, name='browse_genre'),
     url(r'^search/$', views.search, name='search'),
