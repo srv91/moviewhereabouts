@@ -1,5 +1,5 @@
 from django.contrib import admin
-from asteroid.models import Movie, Cast
+from asteroid.models import Movie, Cast, Feedback
 
 class CastInLine(admin.StackedInline):
     model = Cast

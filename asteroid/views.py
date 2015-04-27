@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from asteroid.models import Movie, Cast
+from asteroid.models import Movie, Cast, Feedback
 import urllib
 from urllib2 import urlopen
 import requests
@@ -135,17 +135,16 @@ def search(request):
         return render(request, 'asteroid/search.html', context)
 
 def about(request):
-    context = {'tags': False, 'success': True, 'valid': valid}
+    context = {'tags': False, 'success': True, 'valid': True}
     return render(request, 'asteroid/about.html', context)
 
 def feedback(request):
     if 'name' in request.POST and request.POST['name']:
         if 'email' in request.POST and request.POST['email']:
             if 'message' in request.POST and request.POST['message']:
-
-            name = request.POST['name']
-            email = request.POST['email']
-            message = request.POST['message']
+                name = request.POST['name']
+                email = request.POST['email']
+                message = request.POST['message']
 
             try:
                 validate_email(email)
@@ -158,7 +157,7 @@ def feedback(request):
             context = {'tags': True, 'success': True, 'valid': valid}
             return render(request, 'asteroid/about.html', context)
     else:
-        context = {'tags': True, 'success': False, 'valid': False}
+        context = {'tags': True, 'success': False, 'valid': True}
         return render(request, 'asteroid/about.html', context)
 
 
