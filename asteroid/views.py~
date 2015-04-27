@@ -11,6 +11,7 @@ from rottentomatoes import RT
 from django.db import connection
 from urllib import urlencode
 import zlib
+from django.core.validators import validate_email
 
 def browse(request):
     movies = Movie.objects.all()
@@ -119,7 +120,7 @@ def search(request):
                         syno = movie['synopsis']
                     else:
                         syno = js['overview']
-                    m = Movie(id = rt_id, imdb_id = o_imdbid, tmdb_id = tmdbid, title = movie['title'], movie_synopsis = syno, critics_score = movie['ratings']['critics_score'], release = int(movie['year']), votes = 10, img = image, s_img = simage, l_img = limage, genre = found_genre)
+                    m = Movie(id = rt_id, imdb_id = o_imdbid, tmdb_id = tmdbid, title = movie['title'], movie_synopsis = syno, critics_score = movie['ratings']['critics_score'], votes = 10, img = image, s_img = simage, l_img = limage, genre = found_genre)
                     m.save()
                     m.update()
                 except:
@@ -128,3 +129,29 @@ def search(request):
             found_movies = Movie.objects.filter(title__icontains=q)
             context = {'movies': found_movies}
             return render(request, 'asteroid/search.html', context)
+    else:
+        found_movies = 0
+        context = {'movies': found_movies}
+        return render(request, 'asteroid/search.html', context)
+
+def about(request):
+    context = {'success': True}
+    return render(request, 'asteroid/about.html', context)
+
+def feedback(request):
+    if 'name' in request.POST and request.POST['name']:
+        if 'email' in request.POST and request.POST['email']:
+            if 'message' in request.POST and request.POST['message']:
+
+            name = request.POST['name']
+            email = request.POST['email']
+            message = request.POST['message']
+            f = Feedback(fname = str(name), fmail = email, msg = str(message))
+            f.save()
+            context = {'success': True}
+            return render(request, 'asteroid/about.html', context)
+    else:
+        context = {'success': False}
+        return render(request, 'asteroid/about.html', context)
+
+

@@ -25,7 +25,16 @@ class CastAdmin(admin.ModelAdmin):
     ]
     list_display = ('movie', 'actor')
 
+class FeedbackAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields': ['fname']}),
+        (None, {'fields': ['fmail']}),
+        (None, {'fields': ['msg']}),
+    ]
+    list_display = ('fname', 'fmail')
+
 admin.site.register(Movie, MovieAdmin)
 admin.site.register(Cast, CastAdmin)
+admin.site.register(Feedback, FeedbackAdmin)
 
 

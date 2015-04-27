@@ -11,6 +11,7 @@ from rottentomatoes import RT
 from django.db import connection
 from urllib import urlencode
 import zlib
+from django.core.validators import validate_email
 
 def browse(request):
     movies = Movie.objects.all()
@@ -128,3 +129,36 @@ def search(request):
             found_movies = Movie.objects.filter(title__icontains=q)
             context = {'movies': found_movies}
             return render(request, 'asteroid/search.html', context)
+    else:
+        found_movies = 0
+        context = {'movies': found_movies}
+        return render(request, 'asteroid/search.html', context)
+
+def about(request):
+    context = {'tags': False, 'success': True, 'valid': valid}
+    return render(request, 'asteroid/about.html', context)
+
+def feedback(request):
+    if 'name' in request.POST and request.POST['name']:
+        if 'email' in request.POST and request.POST['email']:
+            if 'message' in request.POST and request.POST['message']:
+
+            name = request.POST['name']
+            email = request.POST['email']
+            message = request.POST['message']
+
+            try:
+                validate_email(email)
+                valid = True
+            except ValidationError:
+                valid = False
+
+            f = Feedback(fname = str(name), fmail = email, msg = str(message))
+            f.save()
+            context = {'tags': True, 'success': True, 'valid': valid}
+            return render(request, 'asteroid/about.html', context)
+    else:
+        context = {'tags': True, 'success': False, 'valid': False}
+        return render(request, 'asteroid/about.html', context)
+
+

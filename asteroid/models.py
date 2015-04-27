@@ -31,3 +31,13 @@ class Cast(models.Model):
 
     def __str__(self):
         return self.movie.title
+
+class Feedback(models.Model):
+    fname = models.CharField(max_length = 25, default='unknown')
+    fmail = models.EmailField(max_length = 50, default='unknown@unknown.com')
+    msg = models.CharField(max_length = 200, default='no msg')
+
+    def __str__(self):
+        return self.fname
+
+
